@@ -4,13 +4,11 @@
  */
 #include "flann.h"
 
-void eyeT::FLANN::FLANN () : matches_minDist (100.0), matches_maxDist (0.0),
+eyeT::FLANN::FLANN () : matches_minDist (100.0), matches_maxDist (0.0),
                              distanceThreshold (0.2), use_distanceThreshold (false)
 {}
 
-virtual void eyeT::FLANN::~FLANN() {}
-
-void eyeT::FLANN::findMatches (eyeT::SURF& eye, eyeT::SURF& roi)
+void eyeT::FLANN::find_matches (eyeT::SURF& eye, eyeT::SURF& roi)
 {
     this->matcher.match (eye.get_descriptors_image(), roi.get_descriptors_image(), this->matches);
 
@@ -85,11 +83,11 @@ void eyeT::FLANN::minMaxDist ()
 {
     this->matches_minDist = 100; this->matches_maxDist = 0;
 
-    for (cv::DMatch it : this->matches)
+    for (cv::DMatch& it : this->matches)
     {
         if (it.distance < this->matches_minDist)
             this->matches_minDist = it.distance;
-        if (it.distance > *maxDist)
+        if (it.distance > this->matches_maxDist)
             this->matches_maxDist = it.distance;
     }
 }
@@ -100,8 +98,8 @@ void eyeT::FLANN::minMaxDist ()
 //-- PS.- radiusMatch can also be used here.
 void eyeT::FLANN::findGoodMatches ()
 {
-    for (cv::DMatch it : this->matches)
+    for (cv::DMatch& it : this->matches)
         if (it.distance <= (using_distanceThreshold()) ?
-                this->distanceThreshold : cv::max(2 * minDist, 0.02))
+                this->distanceThreshold : cv::max(2 * this->matches_minDist, 0.02))
             good_matches.push_back(it);
 }

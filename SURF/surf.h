@@ -1,6 +1,8 @@
 #ifndef SURF_H
 #define SURF_H
 
+#include <vector>
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/nonfree/features2d.hpp>
@@ -17,12 +19,11 @@ namespace eyeT
 
     public:
         SURF (double _minHessian = 400.0);
-        virtual void ~SURF();
 
         /**
-         * @brief getDescriptors    Extrai os descritores de uma imagem passada
-         *                          como parametro e grava o resultado no atributo
-         *                          'descriptors'.
+         * @brief find_descriptors    Extrai os descritores de uma imagem passada
+         *                            como parametro e grava o resultado no atributo
+         *                            'descriptors'.
          *
          * @param img    Imagem que sera usada para calcular os descritores.
          *
@@ -30,7 +31,7 @@ namespace eyeT
          * @param keyPnts    Vector que será usado para guardar todos os
          *                   pontos caracteristicos.
          */
-        void make_descriptors (cv::Mat& img);
+        void find_descriptors (cv::Mat& img);
 
         void set_minHessian (double __minHessian);
 

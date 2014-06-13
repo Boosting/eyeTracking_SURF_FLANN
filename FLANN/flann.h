@@ -1,6 +1,8 @@
 #ifndef FLANN_H
 #define FLANN_H
 
+#include <vector>
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/nonfree/features2d.hpp>
@@ -30,8 +32,6 @@ namespace eyeT
 
     public:
         FLANN ();
-        virtual void ~FLANN();
-
 
         void find_matches (eyeT::SURF& eye, eyeT::SURF& roi);
 
