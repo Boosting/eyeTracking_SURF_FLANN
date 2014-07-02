@@ -13,8 +13,8 @@
 
 eyeT::Homography::Homography() : obj_corners (std::vector <cv::Point2f> (4)),
                                  scene_obj_corners (std::vector <cv::Point2f> (4)),
-                                 transformed_perpective (false), rotated_rect_isCurrent(false),
-                                 rect_isCurrent (false)
+                                 transformed_perpective (false), hessian_mastrix_found(false),
+                                 rotated_rect_isCurrent(false), rect_isCurrent (false)
 {}
 
 void eyeT::Homography::find_homography (std::vector <cv::KeyPoint>& obj_keyPoints,
@@ -29,12 +29,16 @@ void eyeT::Homography::find_homography (std::vector <cv::KeyPoint>& obj_keyPoint
     }
 
     this->H = cv::findHomography (obj, scene, CV_RANSAC);
+    this->hessian_mastrix_found = true;
     this->transformed_perpective = false;
     this->rotated_rect_isCurrent = false;
 }
 
-void eyeT::Homography::perspective_transform (cv::Size& obj_img_size)
+bool eyeT::Homography::perspective_transform (cv::Size& obj_img_size)
 {
+    if (!this->hessian_mastrix_found)
+        return false;
+
     this->obj_corners[0] = cv::Point (0,0);
     this->obj_corners[1] = cv::Point (obj_img_size.width,0);
     this->obj_corners[2] = cv::Point (obj_img_size.width, obj_img_size.height);
@@ -42,6 +46,7 @@ void eyeT::Homography::perspective_transform (cv::Size& obj_img_size)
 
     cv::perspectiveTransform( this->obj_corners, this->scene_obj_corners, this->H );
     this->transformed_perpective = true;
+    return true;
 }
 
 bool eyeT::Homography::draw_lines (cv::Mat& img,cv::Point2f& offset)
@@ -69,11 +74,16 @@ cv::RotatedRect eyeT::Homography::get_rotated_rect()
 cv::Mat eyeT::Homography::get_rotated_rect_img (cv::Mat &img)
 {
     if( !this->rotated_rect_isCurrent )
-        return false;
+        return cv::Mat();
 
     /// Testar o uso de '.angle' como angulo de rotacao
     cv::Mat rot_mat = cv::getRotationMatrix2D( this->rotated_rect.center, this->rotated_rect.angle, 1);
-    cv::warpAffine( img, this->rotated_rect_img, img.size, cv::INTER_CUBIC);
+    cv::warpAffine( img, this->rotated_rect_img, rot_mat, img.size, cv::INTER_CUBIC);
 
     return this->rotated_rect_img;
+}
+
+double eyeT::Homography::get_rotated_rect_angle ()
+{
+    return this->rotated_rect.angle;
 }
