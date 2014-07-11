@@ -15,20 +15,20 @@ namespace eyeT
     {
     private:
         /***********  Variaveis ***********/
-        /* Utilizado para encontrar pares de keypoints que batem, *
+        /** Utilizado para encontrar pares de keypoints que batem,
          * de dois frames diferentes.                             */
         cv::FlannBasedMatcher matcher;
-        /* Guarda todos os casamentos de pontos aceitos pelo combinador (matcher). */
+        /** Guarda todos os casamentos de pontos aceitos pelo combinador (matcher). */
         std::vector <cv::DMatch> matches, good_matches;
 
-        /* Menor e maior distancia dos casamentos, usados para definir os bons casamentos *
+        /** Menor e maior distancia dos casamentos, usados para definir os bons casamentos
          * dentre todos os casamentos detectados                                          */
         double matches_minDist, matches_maxDist;
 
-        /* limiar de distancia definido pelo usuario, substituindo matches_minDist para o *
+        /** limiar de distancia definido pelo usuario, substituindo matches_minDist para o
          * Calculo dos bons casamentos                                                    */
         float distanceThreshold;
-        /* Determina se sera ou nao, usado o limiar de distancia definido pelo usuario, *
+        /** Determina se sera ou nao, usado o limiar de distancia definido pelo usuario,
          * ou a implementacao automatizada                                              */
         bool use_distanceThreshold;
 
@@ -66,7 +66,7 @@ namespace eyeT
         /**
          * @brief find_matches  Encontra os casamentos dos pontos passados como parametro,
          *                      os grava em matches e good_maches, e gera uma imagem que
-         *                      msotra graficamente, as duas imagens e seus casamentos (bons).
+         *                      mostra graficamente, as duas imagens e seus casamentos (bons).
          *
          * @param eye           Estrutura que representa os descritores e pontos
          *                      caracteristicos de uma imagem, no caso, dos olhos (template).
@@ -115,7 +115,6 @@ namespace eyeT
         /**
          * @brief set_use_DistanceThreshold     Habilita o uso do limiar de distancia
          *                                      definido externamente.
-         *
          */
         void set_use_DistanceThreshold ();
 
@@ -123,7 +122,6 @@ namespace eyeT
          * @brief set_DistanceThreshold     Determinar um novo limiar de distancia usado para
          *                                  definir qual par de pontos caracteristicos pode ser
          *                                  dito como um bom par.
-         *
          *
          * @param __distance                Novo limiar de distancia.
          */

@@ -12,13 +12,13 @@ namespace eyeT
     class SURF
     {
     private:
-        /* Detector dos pontos caracteristicos do frame. */
+        /** Detector dos pontos caracteristicos do frame. */
         cv::SurfFeatureDetector detector;
-        /* Estrutra que guarda os pontos caracteristicos detectados. */
+        /** Estrutra que guarda os pontos caracteristicos detectados. */
         std::vector <cv::KeyPoint> keyPnts;
-        /* Extrator dos descritores do frame (obtido com base nos KeyPoints). */
+        /** Extrator dos descritores do frame (obtido com base nos KeyPoints). */
         cv::SurfDescriptorExtractor extractor;
-        /* Estrutura no formato de imagem (matriz) que representa os descritores detectados. */
+        /** Estrutura no formato de imagem (matriz) que representa os descritores detectados. */
         cv::Mat descriptors;
 
     public:

@@ -14,32 +14,32 @@ class Homography
 {
 private:
 
-    /* 4 pontos que delimitam o objeto, e o objeto dentro do frame. */
+    /** 4 pontos que delimitam o objeto, e o objeto dentro do frame. */
     std::vector <cv::Point2f> obj_corners;
     std::vector <cv::Point2f> scene_obj_corners;
 
-    /* Indica se a transfomracao de perspectiva ja foi realizada. */
+    /** Indica se a transfomracao de perspectiva ja foi realizada. */
     bool transformed_perpective;
-    /* Indica se a matriz Hessiana ja foi calculada*/
+    /** Indica se a matriz Hessiana ja foi calculada*/
     bool hessian_mastrix_found;
-    /* Indica se o 'rotated_rect' atual corresponde aos dados atuais */
+    /** Indica se o 'rotated_rect' atual corresponde aos dados atuais */
     bool rotated_rect_isCurrent;
-    /* Indica se o 'rect' atual corresponde aos dados atuais */
+    /** Indica se o 'rect' atual corresponde aos dados atuais */
     bool rect_isCurrent;
 //    /* Angulo de inclinacao do 'rotated_rect' */
 //    double rotated_rect_angle;
 	
-    /* KeyPoints of Good Matches. */
+    /** KeyPoints of Good Matches. */
     std::vector <cv::Point2f> obj;
     std::vector <cv::Point2f> scene;
 	
-    /* Matriz de homograﬁa que deﬁne o mapeamento de um conjunto *
+    /** Matriz de homograﬁa que deﬁne o mapeamento de um conjunto
      *  de pontos correspondentes entre dois planos[1].          */
     cv::Mat H;
 
-    /* Retangulo rotacionado que delimita a posicao do objeto no frame */
+    /** Retangulo rotacionado que delimita a posicao do objeto no frame */
 	cv::RotatedRect rotated_rect;
-    /* Imagem com o conteudo de 'rotated_rect' */
+    /** Imagem com o conteudo de 'rotated_rect' */
     cv::Mat rotated_rect_img;
 
 public:
