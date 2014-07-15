@@ -13,19 +13,19 @@ namespace eyeT
     {
     private:
         /** Informa se foi achado olhos no frame, usado no homographyFinder, que so pode ser
-         *  Executado caso tenha achado olhos no frame */
+         *  Executado caso tenha achado olhos no frame. */
         bool eyesFound;
         
         /** Informa se foi determinaod a posicao dos olhos no frame, caso exitam. Usado
-         *  na funcao drawEyesPositionLines() */
-        bool eyesPositionFound
+         *  na funcao drawEyesPositionLines(). */
+        bool eyesPositionFound;
 
         /** Limiar que define se foram, ou nao, achados os olhos no frame. Caso o numero armazenado em
          *  matcher.get_numOf_goodMatches() for maior que K, logo, existem os olhos no frame. */
         int K;
 
         /** Processa e guarda os descritores dos olhos (template). */
-        eyeT::SURF eyeDescriptor;
+        eyeT::SURF eyesDescriptor;
         /** Processa e guarda os descritores do frame, onde deve-se procurar os olhos. */
         eyeT::SURF frameDescriptor;
 
@@ -37,23 +37,30 @@ namespace eyeT
          *  de dentro do frame, mesmo se eles estiverem inclinados. */
         eyeT::Homography homographyFinder;
 
+        /** Modelo de olhos que serve como base para se procurar olhos dentro do frame. */
+        cv::Mat eyesTemplate;
+
     public:
         Tracker();
+
+        /**
+         * @brief Tracker           Construtor da classe que ja inicializa com um modelo dos olhos.
+         *
+         * @param __eyesTemplate    Modelo de olhos que sera utilizado para o processamento.
+         */
+        Tracker( cv::Mat& __eyesTemplate );
 
         /**
          * @brief haveEyesInFrame   Procura pelos olhos (eyeTemplate), dentro do frame.
          *
          * @param frame             Frame onde serah procurado o os olhos.
          *
-         * @param eyeTemplate       Modelo de olhos que server como base para se procurar olhos
-         *                          dentro do frame.
-         *
          * @return true, caso se tenha achado olhos dentro do frame,
          *         false, caso contrario. Se admite que achou olhos dentro do frame, quando o numero
          *         de bons casamentos de pontos caracteristicos entre o frame
          *         e o eyeTemplate, eh maior que K.
          */
-        bool haveEyesInFrame( cv::Mat& frame, cv::Mat& eyeTemplate );
+        bool haveEyesInFrame( cv::Mat& frame );
 
         /**
          * @brief haveEyesInFrame   Procura pelos olhos (eyeTemplate), dentro do frame, e grava
@@ -61,9 +68,6 @@ namespace eyeT
          *                          e do eyeTemplate
          *
          * @param frame             Frame onde serah procurado o os olhos.
-         *
-         * @param eyeTemplate       Modelo de olhos que server como base para se procurar olhos
-         *                          dentro do frame.
          *
          * @param resulImg          Usado para se gravar o resultado gerado pelo processamento
          *                          do comparador de pontos caracteristicos.
@@ -73,19 +77,16 @@ namespace eyeT
          *         de bons casamentos de pontos caracteristicos entre o frame
          *         e o eyeTemplate, eh maior que K.
          */
-        bool haveEyesInFrame( cv::Mat& frame, cv::Mat& eyeTemplate, cv::Mat& resulImg );
+        bool haveEyesInFrame( cv::Mat& frame, cv::Mat& resulImg );
         
         /**
          * @brief getEyesPosition   Determina a posicao dos olhos no frame já processado, e retorna
          *                          uma estrutura que especifica essa posicao.
          * 
-         * @param eyesFrameSize     Tamanho da imagem dos olhos. Utilizado para se obter sua posicao
-         *                          relativa no frame (eyeT::Homography::perspective_transform()).
-         * 
          * @return Retangulo que pode estar rotacionado, que especifica a posicao 
          *         dos olhos dentro do frame.
          */
-        cv::RotatedRect getEyesPosition( cv::Size& eyesFrameSize );
+        cv::RotatedRect getEyesPosition();
         
         /**
          * @brief drawEyesPositionLines     Desenha linhas que delimitam a posicao dos olhos dentro
@@ -132,6 +133,22 @@ namespace eyeT
          * @return Valor atual de K.
          */
         int getK();
+
+        /**
+         * @brief setEyesTemplate   Atribui um novo modelo de olhos para ser procurado nos frames.
+         *                          Automaticamente, eh feito um processamento para se obter os
+         *                          descritores do modelo atrbuido.
+         *
+         * @param __eyesTemplate    Novo modelo de olhos que sera atrbuido.
+         */
+        void setEyesTemplate( cv::Mat& __eyesTemplate );
+
+        /**
+         * @brief getEyesTemplate   Usado para se obter o modelo de olhos usado atualmente.
+         *
+         * @return cv::Mat representado o modleo de olhos que esta sendo utilizado.
+         */
+        cv::Mat getEyesTemplate();
     };
 }
 

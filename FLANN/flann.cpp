@@ -18,7 +18,7 @@ void eyeT::FLANN::find_matches (eyeT::SURF& eye, eyeT::SURF& roi)
 }
 
 cv::Mat eyeT::FLANN::find_matches (eyeT::SURF& eye, eyeT::SURF& roi,
-                                   cv::Mat& frameEYE, cv::Mat& frameROI)
+                                   cv::Mat& eyeTemplate, cv::Mat& frame)
 {
     this->matcher.match (eye.get_descriptors_image(), roi.get_descriptors_image(), this->matches);
 
@@ -27,7 +27,7 @@ cv::Mat eyeT::FLANN::find_matches (eyeT::SURF& eye, eyeT::SURF& roi,
     findGoodMatches ();
 
     cv::Mat imgResul;
-    cv::drawMatches (frameEYE, eye.get_keyPoints(), frameROI, roi.get_keyPoints(),
+    cv::drawMatches (eyeTemplate, eye.get_keyPoints(), frame, roi.get_keyPoints(),
                      this->good_matches, imgResul, cv::Scalar::all(-1),
                      cv::Scalar::all(-1), std::vector <char>(),
                      cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
@@ -47,6 +47,11 @@ double eyeT::FLANN::get_maxDist()
 int eyeT::FLANN::get_numOf_goodMatches()
 {
     return this->good_matches.size();
+}
+
+std::vector<cv::DMatch> eyeT::FLANN::get_gootMatches()
+{
+    return this->good_matches;
 }
 
 int eyeT::FLANN::get_numOf_matches()

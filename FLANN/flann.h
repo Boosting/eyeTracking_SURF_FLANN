@@ -75,14 +75,14 @@ namespace eyeT
          *                      caracteristicos de outra imagem, no caso, do proximo frame,
          *                      onde sera procurado os olhos dentro.
          *
-         * @param frameEYE      Imagem do template
+         * @param eyeTemplate   Imagem do template
          *
-         * @param frameROI      Imagem do frame completo (proximo frame).
+         * @param frame         Imagem do frame completo (proximo frame).
          *
          * @return imagem que mostra graficamente, as duas imagens e seus casamentos (bons).
          */
         cv::Mat find_matches (eyeT::SURF& eye, eyeT::SURF& roi,
-                              cv::Mat& frameEYE, cv::Mat& frameROI);
+                              cv::Mat& eyeTemplate, cv::Mat& frame);
 
         /**
          * @brief get_minDist   Se obtem a menos distancia encontrada entre os pares definidos.
@@ -97,6 +97,14 @@ namespace eyeT
          * @return Maior distancia entre os pares.
          */
         double get_maxDist ();
+
+        /**
+         * @brief get_gootMatches   Retorna um vector com os bons pares de pontos
+         *                          caracteristicos encontrados (DMatch).
+         *
+         * @return Vetor com os bons pares de descritores.
+         */
+        std::vector<cv::DMatch> get_gootMatches ();
 
         /**
          * @brief get_numOf_goodMatches     Retorna o numero de bons pares encontrados.
