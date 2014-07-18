@@ -49,7 +49,7 @@ int eyeT::FLANN::get_numOf_goodMatches()
     return this->good_matches.size();
 }
 
-std::vector<cv::DMatch> eyeT::FLANN::get_gootMatches()
+std::vector<cv::DMatch> eyeT::FLANN::get_goodMatches()
 {
     return this->good_matches;
 }

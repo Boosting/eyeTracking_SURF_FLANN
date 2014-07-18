@@ -17,11 +17,11 @@ eyeT::Homography::Homography() : obj_corners (std::vector <cv::Point2f> (4)),
                                  rotated_rect_isCurrent(false), rect_isCurrent (false)
 {}
 
-void eyeT::Homography::find_homography (std::vector <cv::KeyPoint>& obj_keyPoints,
-                                        std::vector <cv::KeyPoint>& scene_keyPoints,
-                                        std::vector <cv::DMatch>& good_matches)
+void eyeT::Homography::find_homography (const std::vector<cv::KeyPoint> &obj_keyPoints,
+                                        const std::vector<cv::KeyPoint> &scene_keyPoints,
+                                        const std::vector<cv::DMatch> &good_matches)
 {
-    for (cv::DMatch& good_match : good_matches)
+    for (const cv::DMatch& good_match : good_matches)
     {
         //-- Get the keypoints from the good matches[2]
         this->obj.push_back (obj_keyPoints[good_match.queryIdx].pt);
@@ -34,7 +34,7 @@ void eyeT::Homography::find_homography (std::vector <cv::KeyPoint>& obj_keyPoint
     this->rotated_rect_isCurrent = false;
 }
 
-bool eyeT::Homography::perspective_transform (cv::Size& obj_img_size)
+bool eyeT::Homography::perspective_transform (const cv::Size &obj_img_size)
 {
     if (!this->hessian_mastrix_found)
         return false;
@@ -49,7 +49,7 @@ bool eyeT::Homography::perspective_transform (cv::Size& obj_img_size)
     return true;
 }
 
-bool eyeT::Homography::draw_lines (cv::Mat& img,cv::Point2f& offset)
+bool eyeT::Homography::draw_lines (cv::Mat& img, cv::Point2f offset)
 {
 	if (!this->transformed_perpective)
 	    return false;
@@ -78,7 +78,7 @@ cv::Mat eyeT::Homography::get_rotated_rect_img (cv::Mat &img)
 
     /// Testar o uso de '.angle' como angulo de rotacao
     cv::Mat rot_mat = cv::getRotationMatrix2D( this->rotated_rect.center, this->rotated_rect.angle, 1);
-    cv::warpAffine( img, this->rotated_rect_img, rot_mat, img.size, cv::INTER_CUBIC);
+    cv::warpAffine( img, this->rotated_rect_img, rot_mat, cv::Size( img.cols, img.rows ), cv::INTER_CUBIC);
 
     return this->rotated_rect_img;
 }

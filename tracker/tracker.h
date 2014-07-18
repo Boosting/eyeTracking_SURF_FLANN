@@ -103,7 +103,7 @@ namespace eyeT
          *         do imgResul passado como parametro nao ter ao menos o tamanho minimo necessario
          *         para se desenha as linhas.
          */
-        bool drawEyesPositionLines( cv::Mat& imgResul, cv::Point2f& offset = cv::Point2f( 0,0 )  );
+        bool drawEyesPositionLines( cv::Mat& imgResul, cv::Point2f offset = cv::Point2f( 0,0 )  );
         
         /**
          * @brief getEyesInFrame    Retorna a imagem delimitada pela posicao dos olhos

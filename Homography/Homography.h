@@ -56,9 +56,9 @@ public:
      *
      * @param good_matches      Bons casamentos entre os pontos detectados anteriormente.
      */
-    void find_homography (std::vector <cv::KeyPoint>& obj_keyPoints,
-                          std::vector <cv::KeyPoint>& scene_keyPoints,
-                          std::vector <cv::DMatch>& good_matches);
+    void find_homography (const std::vector <cv::KeyPoint>& obj_keyPoints,
+                          const std::vector <cv::KeyPoint>& scene_keyPoints,
+                          const std::vector <cv::DMatch>& good_matches);
 
     /**
      * @brief perspective_transform     Utiliza a matriz de homografia calculada previamente
@@ -69,7 +69,7 @@ public:
      * @return true, caso tenha calculado a trasformacao de perspectiva,
      *         false, caso contrario, Pelo fato de nao se ter calculado a matriz Hessiana ainda.
      */
-    void perspective_transform (cv::Size& obj_img_size);
+    bool perspective_transform (const cv::Size& obj_img_size);
 	
     /**
      * @brief draw_lines    Desenha linhas baseadas nos 4 pontos detectados que delimitam
@@ -84,7 +84,7 @@ public:
      *         false, caso nao tenha desenhado as linhas por conta de nao ter feito a
      *         transformacao de perspectiva ainda.
      */
-	bool draw_lines (cv::Mat& img, cv::Point2f& offset = cv::Point2f (0,0));
+    bool draw_lines (cv::Mat& img, cv::Point2f offset = cv::Point2f (0,0));
 	
     /**
      * @brief get_rotated_rect  Determina um RotatedRect que compreende a aerea delimitada

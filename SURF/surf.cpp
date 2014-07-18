@@ -1,8 +1,9 @@
 #include "surf.h"
 
 eyeT::SURF::SURF(double _minHessian)
-    : detector (cv::SurfFeatureDetector (_minHessian))
-{}
+{
+    detector = cv::SurfFeatureDetector (_minHessian);
+}
 
 void eyeT::SURF::find_descriptors(cv::Mat &img)
 {
@@ -12,7 +13,7 @@ void eyeT::SURF::find_descriptors(cv::Mat &img)
 
 void eyeT::SURF::set_minHessian(double __minHessian)
 {
-    this->detector = cv::SurfFeatureDetector (__minHessian);
+    this->detector.hessianThreshold = __minHessian;
 }
 
 double eyeT::SURF::get_minHessian()

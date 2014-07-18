@@ -104,7 +104,7 @@ namespace eyeT
          *
          * @return Vetor com os bons pares de descritores.
          */
-        std::vector<cv::DMatch> get_gootMatches ();
+        std::vector<cv::DMatch> get_goodMatches ();
 
         /**
          * @brief get_numOf_goodMatches     Retorna o numero de bons pares encontrados.

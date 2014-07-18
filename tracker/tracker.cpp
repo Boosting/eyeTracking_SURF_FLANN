@@ -57,13 +57,14 @@ cv::RotatedRect eyeT::Tracker::getEyesPosition()
                                             this->matcher.get_goodMatches() );
     
     // Fazer a transformacao de perspectiva
-    this->homographyFinder.perspective_transform( this->eyesTemplate.size );
+    this->homographyFinder.perspective_transform( cv::Size( this->eyesTemplate.cols,
+                                                            this->eyesTemplate.rows ) );
     
     // Obter o retangulo rotacionado e retorna-lo
     return this->homographyFinder.get_rotated_rect();
 }
 
-bool eyeT::Tracker::drawEyesPositionLines( cv::Mat &imgResul, cv::Point2f &offset )
+bool eyeT::Tracker::drawEyesPositionLines(cv::Mat &imgResul, cv::Point2f offset )
 {
     if( !eyesPositionFound )
         return false;
