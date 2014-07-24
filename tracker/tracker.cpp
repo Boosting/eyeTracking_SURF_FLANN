@@ -1,11 +1,11 @@
 #include "tracker.h"
 
 eyeT::Tracker::Tracker() :
-    eyesFound( false ), eyesPositionFound( false ), K( 150 )
+    eyesFound( false ), eyesPositionFound( false ), K( 1 )
 {}
 
 eyeT::Tracker::Tracker( cv::Mat& __eyesTemplate  ) :
-    eyesFound( false ), eyesPositionFound( false ), K( 150 )
+    eyesFound( false ), eyesPositionFound( false ), K( 1 )
 {
     this->setEyesTemplate( __eyesTemplate );
 }
@@ -61,16 +61,22 @@ cv::RotatedRect eyeT::Tracker::getEyesPosition()
                                                             this->eyesTemplate.rows ) );
     
     // Obter o retangulo rotacionado e retorna-lo
+    this->eyesPositionFound = true;
     return this->homographyFinder.get_rotated_rect();
 }
 
-bool eyeT::Tracker::drawEyesPositionLines(cv::Mat &imgResul, cv::Point2f offset )
+bool eyeT::Tracker::drawEyesPositionLines( cv::Mat &imgResul, cv::Point2f offset )
 {
     if( !eyesPositionFound )
         return false;
 
     this->homographyFinder.draw_lines( imgResul, offset );
     return true;
+}
+
+cv::Mat eyeT::Tracker::getEyesInFrame( cv::Mat &frame )
+{
+    return this->homographyFinder.get_rotated_rect_img( frame );
 }
 
 //-> eyeTemplate deve ser guardado dentro da classe, e setado separadamente,
@@ -94,4 +100,64 @@ void eyeT::Tracker::setK( int __K )
 int eyeT::Tracker::getK()
 {
     return this->K;
+}
+
+int eyeT::Tracker::get_numOf_goodMatches()
+{
+    return this->matcher.get_numOf_goodMatches();
+}
+
+void eyeT::Tracker::set_eyesTemplate_minHessian( double __minHessian )
+{
+    this->eyesDescriptor.set_minHessian( __minHessian );
+    if( !this->eyesTemplate.empty() )
+        this->eyesDescriptor.find_descriptors( this->eyesTemplate );
+}
+
+double eyeT::Tracker::get_eyesTemplate_minHessian()
+{
+    return this->eyesDescriptor.get_minHessian();
+}
+
+void eyeT::Tracker::set_frame_minHessian( double __minHessian )
+{
+    this->frameDescriptor.set_minHessian( __minHessian );
+}
+
+double eyeT::Tracker::get_frame_minHessian()
+{
+    return this->frameDescriptor.get_minHessian();
+}
+
+void eyeT::Tracker::set_matcher_distanceTreshold( float __treshold )
+{
+    this->matcher.set_DistanceThreshold( __treshold );
+}
+
+float eyeT::Tracker::get_matcher_distanceTreshold()
+{
+    return this->matcher.get_DistanceTreshold();
+}
+
+void eyeT::Tracker::matcher_useDistanceTreshold( bool option )
+{
+    if( option )
+        this->matcher.set_use_DistanceThreshold();
+    else
+        this->matcher.unSet_use_DistanceThreshold();
+}
+
+bool eyeT::Tracker::matcher_usingDistanceTreshold()
+{
+    return this->matcher.using_distanceThreshold();
+}
+
+int eyeT::Tracker::get_eyeTemplate_numOf_keyPoints()
+{
+    return this->eyesDescriptor.get_keyPoints_number();
+}
+
+int eyeT::Tracker::get_frame_numOf_keyPoints()
+{
+    return this->frameDescriptor.get_keyPoints_number();
 }

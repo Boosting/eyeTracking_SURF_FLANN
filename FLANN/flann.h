@@ -136,6 +136,13 @@ namespace eyeT
         void set_DistanceThreshold (float __distance);
 
         /**
+         * @brief get_DistanceTreshold  Retorna o limiar de distancia usado atualmente.
+         *
+         * @return Limiar de distancia atual.
+         */
+        float get_DistanceTreshold ();
+
+        /**
          * @brief unSet_use_DistanceThreshold   Desabilita o uso do limiar de distancia
          *                                      definido externamente.
          */

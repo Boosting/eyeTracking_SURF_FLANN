@@ -21,6 +21,9 @@ void eyeT::Homography::find_homography (const std::vector<cv::KeyPoint> &obj_key
                                         const std::vector<cv::KeyPoint> &scene_keyPoints,
                                         const std::vector<cv::DMatch> &good_matches)
 {
+    this->obj.clear();
+    this->scene.clear();
+
     for (const cv::DMatch& good_match : good_matches)
     {
         //-- Get the keypoints from the good matches[2]
@@ -54,10 +57,10 @@ bool eyeT::Homography::draw_lines (cv::Mat& img, cv::Point2f offset)
 	if (!this->transformed_perpective)
 	    return false;
 		
-    cv::line (img, this->scene_obj_corners[0] + offset, this->scene_obj_corners[1] + offset, cv::Scalar(0,255,0), 4);
-    cv::line (img, this->scene_obj_corners[1] + offset, this->scene_obj_corners[2] + offset, cv::Scalar(0,255,0), 4);
-    cv::line (img, this->scene_obj_corners[2] + offset, this->scene_obj_corners[3] + offset, cv::Scalar(0,255,0), 4);
-    cv::line (img, this->scene_obj_corners[3] + offset, this->scene_obj_corners[4] + offset, cv::Scalar(0,255,0), 4);
+    cv::line (img, this->scene_obj_corners[0] + offset, this->scene_obj_corners[1] + offset, cv::Scalar(0,255,0), 1);
+    cv::line (img, this->scene_obj_corners[1] + offset, this->scene_obj_corners[2] + offset, cv::Scalar(0,255,0), 1);
+    cv::line (img, this->scene_obj_corners[2] + offset, this->scene_obj_corners[3] + offset, cv::Scalar(0,255,0), 1);
+    cv::line (img, this->scene_obj_corners[3] + offset, this->scene_obj_corners[0] + offset, cv::Scalar(0,255,0), 1);
     return true;
 }
 

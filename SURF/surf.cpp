@@ -1,8 +1,13 @@
+/*
+ * Referencias:
+ * [1] - http://stackoverflow.com/questions/17613723/whats-the-meaning-of-minhessian-surffeaturedetector
+ */
+
 #include "surf.h"
 
 eyeT::SURF::SURF(double _minHessian)
 {
-    detector = cv::SurfFeatureDetector (_minHessian);
+    this->detector = cv::SurfFeatureDetector (_minHessian);
 }
 
 void eyeT::SURF::find_descriptors(cv::Mat &img)

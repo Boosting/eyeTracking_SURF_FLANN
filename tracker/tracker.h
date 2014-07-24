@@ -149,6 +149,96 @@ namespace eyeT
          * @return cv::Mat representado o modleo de olhos que esta sendo utilizado.
          */
         cv::Mat getEyesTemplate();
+
+        /**
+         * @brief get_numOf_goodMatches     Retorna o numero de bons pares encontrados.
+         *
+         * @return Numero de bons pares encontrados.
+         */
+        int get_numOf_goodMatches();
+
+        /**
+         * @brief set_eyesTemplate_minHessian   Atribui um novo limiar usado na matriz Hessiana do modelo dos olhos, para
+         *                                      decidir se um ponto eh caracteristico ou nao. Quanto menor este valor,
+         *                                      mais pontos sao definidos como caracteristicos.
+         *
+         * @param __minHessian                  Novo limiar.
+         */
+        void set_eyesTemplate_minHessian( double __minHessian );
+
+        /**
+         * @brief get_eyesTemplate_minHessian   Retorna o limiar atual que esta sendo usado na aproximacao
+         *                                      de matriz Hessiana do modelo de olhos.
+         *
+         * @return Limiar atual utilizado.
+         */
+        double get_eyesTemplate_minHessian();
+
+        /**
+         * @brief set_frame_minHessian      Atribui um novo limiar usado na matriz Hessiana do frame, para decidir se um ponto
+         *                                  eh caracteristico ou nao. Quanto menor este valor, mais pontos sao definidos
+         *                                  como caracteristicos.
+         *
+         * @param __minHessian              Novo limiar.
+         */
+        void set_frame_minHessian( double __minHessian );
+
+        /**
+         * @brief get_frame_minHessian  Retorna o limiar atual que esta sendo usado na aproximacao
+         *                              de matriz Hessiana do frame.
+         *
+         * @return Limiar atual utilizado.
+         */
+        double get_frame_minHessian();
+
+        /**
+         * @brief set_matcher_distanceTreshold  Atribui um ovo limiar de distacnia,usado para determinar
+         *                                      se um par de descritores pode ser considerado um bom par.
+         *
+         * @param __treshold    Novo limiar de distancia.
+         */
+        void set_matcher_distanceTreshold( float __treshold );
+
+        /**
+         * @brief get_matcher_distanceTreshold  Retorna o limiar de distacia usado atualmente
+         *                                      pelo comparador de descritores.
+         *
+         * @return  Limiar de distancia usado atualmente.
+         */
+        float get_matcher_distanceTreshold();
+
+        /**
+         * @brief matcher_useDistanceTreshold   Defini se o comparador vai usar um limiar de distancia definido
+         *                                      manualmente, ou um  dinamico, implementado diretamente em codigo.
+         *
+         * @param option    true, caso deseje usar um limiar definido manualmente,
+         *                  false, caso contrario.
+         */
+        void matcher_useDistanceTreshold( bool option );
+
+        /**
+         * @brief matcher_usingDistanceTreshold     Informa se o comparador esta usando um limiar de distancia
+         *                                          definido manualmente, ou nao.
+         *
+         * @return true, caso esteja usando um limiar de distancia definido manualmente,
+         *         false, caso contrario.
+         */
+        bool matcher_usingDistanceTreshold();
+
+        /**
+         * @brief get_eyeTemplate_numOf_keyPoints   Usado para se obter o numero de pontos caracteristicos
+         *                                          encontrados no modelo de olhos.
+         *
+         * @return Numero de pontos carcteriscos do modleo de olhos.
+         */
+        int get_eyeTemplate_numOf_keyPoints();
+
+        /**
+         * @brief get_frame_numOf_keyPoints     Retorna o numero de pontos carcteriscos encontrados no frame.
+         *
+         * @return  Numero de pontos caracteristicos do frame.
+         */
+        int get_frame_numOf_keyPoints();
     };
 }
 
