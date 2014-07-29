@@ -227,7 +227,7 @@
              <number>20</number>
             </property>
             <property name="value">
-             <number>1</number>
+             <number>4</number>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -246,7 +246,7 @@
           <item>
            <widget class="QLabel" name="label_KNumber_value">
             <property name="text">
-             <string>1</string>
+             <string>4</string>
             </property>
            </widget>
           </item>

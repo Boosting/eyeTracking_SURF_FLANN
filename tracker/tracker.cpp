@@ -1,11 +1,11 @@
 #include "tracker.h"
 
 eyeT::Tracker::Tracker() :
-    eyesFound( false ), eyesPositionFound( false ), K( 1 )
+    eyesFound( false ), eyesPositionFound( false ), K( 4 )
 {}
 
 eyeT::Tracker::Tracker( cv::Mat& __eyesTemplate  ) :
-    eyesFound( false ), eyesPositionFound( false ), K( 1 )
+    eyesFound( false ), eyesPositionFound( false ), K( 4 )
 {
     this->setEyesTemplate( __eyesTemplate );
 }
