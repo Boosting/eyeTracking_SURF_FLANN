@@ -64,10 +64,6 @@ private slots:
 
     void on_pushButton_iniciar_clicked();
 
-    void on_horizontalSlider_hessianTresholdEyeTemplate_valueChanged(int value);
-
-    void on_horizontalSlider_hessianTresholdFrame_valueChanged(int value);
-
     void on_horizontalSlider_matcherDistanceTreshold_valueChanged(int value);
 
     void on_checkBox_matcherDistanceTreshold_clicked();

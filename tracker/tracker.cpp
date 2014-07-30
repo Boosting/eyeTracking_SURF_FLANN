@@ -107,28 +107,6 @@ int eyeT::Tracker::get_numOf_goodMatches()
     return this->matcher.get_numOf_goodMatches();
 }
 
-void eyeT::Tracker::set_eyesTemplate_minHessian( double __minHessian )
-{
-    this->eyesDescriptor.set_minHessian( __minHessian );
-    if( !this->eyesTemplate.empty() )
-        this->eyesDescriptor.find_descriptors( this->eyesTemplate );
-}
-
-double eyeT::Tracker::get_eyesTemplate_minHessian()
-{
-    return this->eyesDescriptor.get_minHessian();
-}
-
-void eyeT::Tracker::set_frame_minHessian( double __minHessian )
-{
-    this->frameDescriptor.set_minHessian( __minHessian );
-}
-
-double eyeT::Tracker::get_frame_minHessian()
-{
-    return this->frameDescriptor.get_minHessian();
-}
-
 void eyeT::Tracker::set_matcher_distanceTreshold( float __treshold )
 {
     this->matcher.set_DistanceThreshold( __treshold );

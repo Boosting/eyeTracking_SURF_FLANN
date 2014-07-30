@@ -8,7 +8,7 @@ eyeT::FLANN::FLANN () : matches_minDist (100.0), matches_maxDist (0.0),
                              distanceThreshold (0.02), use_distanceThreshold (false)
 {}
 
-void eyeT::FLANN::find_matches (eyeT::SURF& eye, eyeT::SURF& roi)
+void eyeT::FLANN::find_matches (ORB &eye, ORB &roi)
 {
     this->matcher.match (eye.get_descriptors_image(), roi.get_descriptors_image(), this->matches);
 
@@ -17,7 +17,7 @@ void eyeT::FLANN::find_matches (eyeT::SURF& eye, eyeT::SURF& roi)
     findGoodMatches ();
 }
 
-cv::Mat eyeT::FLANN::find_matches (eyeT::SURF& eye, eyeT::SURF& roi,
+cv::Mat eyeT::FLANN::find_matches (ORB &eye, ORB &roi,
                                    cv::Mat& eyeTemplate, cv::Mat& frame)
 {
     this->matcher.match (eye.get_descriptors_image(), roi.get_descriptors_image(), this->matches);

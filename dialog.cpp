@@ -27,8 +27,6 @@ Dialog::Dialog( QWidget *parent ) :
     this->ui->pushButton_reiniciar->setEnabled( 0 );
     this->ui->label_goodMatchesNumber->setText( "0" );
     this->ui->label_executionStatus->setText( "Não inicializado" );
-    this->ui->horizontalSlider_hessianTresholdEyeTemplate->setEnabled( 0 );
-    this->ui->horizontalSlider_hessianTresholdFrame->setEnabled( 0 );
     this->ui->horizontalSlider_matcherDistanceTreshold->setEnabled( 0 );
     this->ui->checkBox_matcherDistanceTreshold->setEnabled( 0 );
     this->ui->horizontalSlider_KNumber->setEnabled( 0 );
@@ -211,8 +209,6 @@ void Dialog::on_pushButton_iniciar_clicked()
     this->ui->pushButton_pausarContinuar->setEnabled( 1 );
     this->ui->pushButton_reiniciar->setEnabled( 1 );
     this->ui->label_executionStatus->setText( "Detectando os olhos." );
-    this->ui->horizontalSlider_hessianTresholdEyeTemplate->setEnabled( 1 );
-    this->ui->horizontalSlider_hessianTresholdFrame->setEnabled( 1 );
     this->ui->horizontalSlider_matcherDistanceTreshold->setEnabled( 1 );
     this->ui->checkBox_matcherDistanceTreshold->setEnabled( 1 );
     this->ui->horizontalSlider_KNumber->setEnabled( 1 );
@@ -223,18 +219,6 @@ void Dialog::on_pushButton_iniciar_clicked()
     //-> Trabalha com no maximo 33 frames por segundo.
     this->timer->start( 1000 / (int) ( ( this->inputFPS < 33.0 && this->inputFPS != 0.0 ) ?
                                         this->inputFPS : 33.0 ) );
-}
-
-void Dialog::on_horizontalSlider_hessianTresholdEyeTemplate_valueChanged( int value )
-{
-    this->tracker.set_eyesTemplate_minHessian( value );
-    this->ui->label_hessianTresholdEyeTemplate_value->setText( QString::number( this->tracker.get_eyesTemplate_minHessian() ) );
-}
-
-void Dialog::on_horizontalSlider_hessianTresholdFrame_valueChanged(int value)
-{
-    this->tracker.set_frame_minHessian( value );
-    this->ui->label_hessianTresholdFrame_value->setText( QString::number( this->tracker.get_frame_minHessian() ) );
 }
 
 void Dialog::on_horizontalSlider_matcherDistanceTreshold_valueChanged(int value)

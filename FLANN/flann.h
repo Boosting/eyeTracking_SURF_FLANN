@@ -7,7 +7,7 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/nonfree/features2d.hpp>
 
-#include "../SURF/surf.h"
+#include "../ORB/orb.h"
 
 namespace eyeT
 {
@@ -61,7 +61,7 @@ namespace eyeT
          *                      caracteristicos de outra imagem, no caso, do proximo frame,
          *                      onde sera procurado os olhos dentro.
          */
-        void find_matches (eyeT::SURF& eye, eyeT::SURF& roi);
+        void find_matches (eyeT::ORB& eye, eyeT::ORB& roi);
 
         /**
          * @brief find_matches  Encontra os casamentos dos pontos passados como parametro,
@@ -81,7 +81,7 @@ namespace eyeT
          *
          * @return imagem que mostra graficamente, as duas imagens e seus casamentos (bons).
          */
-        cv::Mat find_matches (eyeT::SURF& eye, eyeT::SURF& roi,
+        cv::Mat find_matches (eyeT::ORB& eye, eyeT::ORB& roi,
                               cv::Mat& eyeTemplate, cv::Mat& frame);
 
         /**

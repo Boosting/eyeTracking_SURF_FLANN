@@ -3,7 +3,7 @@
 
 #include <opencv2/core/core.hpp>
 
-#include "../SURF/surf.h"
+#include "../ORB/orb.h"
 #include "../FLANN/flann.h"
 #include "../Homography/Homography.h"
 
@@ -25,9 +25,9 @@ namespace eyeT
         int K;
 
         /** Processa e guarda os descritores dos olhos (template). */
-        eyeT::SURF eyesDescriptor;
+        eyeT::ORB eyesDescriptor;
         /** Processa e guarda os descritores do frame, onde deve-se procurar os olhos. */
-        eyeT::SURF frameDescriptor;
+        eyeT::ORB frameDescriptor;
 
         /** Comparador que vai ser usado para encontrar caracteristicas semelhantes entre
          *  o frame e o template do olhos, utilizando os descritores ja obtidos. */
@@ -156,40 +156,6 @@ namespace eyeT
          * @return Numero de bons pares encontrados.
          */
         int get_numOf_goodMatches();
-
-        /**
-         * @brief set_eyesTemplate_minHessian   Atribui um novo limiar usado na matriz Hessiana do modelo dos olhos, para
-         *                                      decidir se um ponto eh caracteristico ou nao. Quanto menor este valor,
-         *                                      mais pontos sao definidos como caracteristicos.
-         *
-         * @param __minHessian                  Novo limiar.
-         */
-        void set_eyesTemplate_minHessian( double __minHessian );
-
-        /**
-         * @brief get_eyesTemplate_minHessian   Retorna o limiar atual que esta sendo usado na aproximacao
-         *                                      de matriz Hessiana do modelo de olhos.
-         *
-         * @return Limiar atual utilizado.
-         */
-        double get_eyesTemplate_minHessian();
-
-        /**
-         * @brief set_frame_minHessian      Atribui um novo limiar usado na matriz Hessiana do frame, para decidir se um ponto
-         *                                  eh caracteristico ou nao. Quanto menor este valor, mais pontos sao definidos
-         *                                  como caracteristicos.
-         *
-         * @param __minHessian              Novo limiar.
-         */
-        void set_frame_minHessian( double __minHessian );
-
-        /**
-         * @brief get_frame_minHessian  Retorna o limiar atual que esta sendo usado na aproximacao
-         *                              de matriz Hessiana do frame.
-         *
-         * @return Limiar atual utilizado.
-         */
-        double get_frame_minHessian();
 
         /**
          * @brief set_matcher_distanceTreshold  Atribui um ovo limiar de distacnia,usado para determinar
