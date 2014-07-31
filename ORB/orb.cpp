@@ -26,3 +26,12 @@ std::vector< cv::KeyPoint > eyeT::ORB::get_keyPoints()
 {
     return this->keyPnts;
 }
+
+void eyeT::ORB::set_newParams( int nfeatures, float scaleFactor, int nlevels, int edgeThreshold,
+                               int firstLevel, int WTA_K, int scoreType, int patchSize )
+{
+    this->detector = cv::OrbFeatureDetector( nfeatures, scaleFactor, nlevels, edgeThreshold,
+                                             firstLevel, WTA_K, scoreType, patchSize );
+    this->extractor = cv::OrbDescriptorExtractor( nfeatures, scaleFactor, nlevels, edgeThreshold,
+                                                  firstLevel, WTA_K, scoreType, patchSize );
+}

@@ -56,6 +56,9 @@ namespace eyeT {
          * @return std::vector de cv::Keypoint que contem os pontos caracteristicos detectados
          */
         std::vector< cv::KeyPoint > get_keyPoints ();
+
+        void set_newParams( int nfeatures = 500, float scaleFactor = 1.2f, int nlevels = 8, int edgeThreshold = 31,
+                            int firstLevel = 0, int WTA_K=2, int scoreType=cv::ORB::HARRIS_SCORE, int patchSize=31 );
     };
 }
 

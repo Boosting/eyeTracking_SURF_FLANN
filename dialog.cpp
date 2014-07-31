@@ -224,6 +224,7 @@ void Dialog::on_pushButton_iniciar_clicked()
 void Dialog::on_horizontalSlider_matcherDistanceTreshold_valueChanged(int value)
 {
     this->tracker.set_matcher_distanceTreshold( (float) value / 100.0 );
+    this->ui->label_matcherDistanceTreshold_value->setText( QString::number( (float) value / 100.0 ));
 }
 
 void Dialog::on_checkBox_matcherDistanceTreshold_clicked()

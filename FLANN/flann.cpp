@@ -4,13 +4,27 @@
  */
 #include "flann.h"
 
-eyeT::FLANN::FLANN () : matches_minDist (100.0), matches_maxDist (0.0),
-                             distanceThreshold (0.02), use_distanceThreshold (false)
+eyeT::FLANN::FLANN () : matcher( cv::FlannBasedMatcher( new cv::flann::LshIndexParams(
+                                                            6, 12, 1) ) ),
+                        matches_minDist (100.0), matches_maxDist (0.0),
+                        distanceThreshold (180.0), use_distanceThreshold (false)
 {}
 
 void eyeT::FLANN::find_matches (ORB &eye, ORB &roi)
 {
-    this->matcher.match (eye.get_descriptors_image(), roi.get_descriptors_image(), this->matches);
+    cv::Mat eye_CV32F, roi_CV32F;
+
+    /*if( eye.get_descriptors_image().type() != CV_32F )
+        eye.get_descriptors_image().convertTo( eye_CV32F, CV_32F);
+    else*/
+        eye_CV32F = eye.get_descriptors_image();
+
+    /*if( roi.get_descriptors_image().type() != CV_32F )
+        roi.get_descriptors_image().convertTo( roi_CV32F, CV_32F);
+    else*/
+        roi_CV32F = roi.get_descriptors_image();
+
+    this->matcher.match (eye_CV32F, roi_CV32F, this->matches);
 
     minMaxDist ();
 
@@ -20,7 +34,19 @@ void eyeT::FLANN::find_matches (ORB &eye, ORB &roi)
 cv::Mat eyeT::FLANN::find_matches (ORB &eye, ORB &roi,
                                    cv::Mat& eyeTemplate, cv::Mat& frame)
 {
-    this->matcher.match (eye.get_descriptors_image(), roi.get_descriptors_image(), this->matches);
+    cv::Mat eye_CV32F, roi_CV32F;
+
+    /*if( eye.get_descriptors_image().type() != CV_32F )
+        eye.get_descriptors_image().convertTo( eye_CV32F, CV_32F);
+    else*/
+        eye_CV32F = eye.get_descriptors_image();
+
+    /*if( roi.get_descriptors_image().type() != CV_32F )
+        roi.get_descriptors_image().convertTo( roi_CV32F, CV_32F);
+    else*/
+        roi_CV32F = roi.get_descriptors_image();
+
+    this->matcher.match (eye_CV32F, roi_CV32F, this->matches);
 
     minMaxDist ();
 
@@ -112,6 +138,6 @@ void eyeT::FLANN::findGoodMatches ()
 
     for (cv::DMatch& it : this->matches)
         if (it.distance <= ((using_distanceThreshold()) ?
-                this->distanceThreshold : cv::max(2 * this->matches_minDist, 0.02)))
+                this->distanceThreshold : cv::max(2.0 * this->matches_minDist, 0.02)))
             good_matches.push_back(it);
 }

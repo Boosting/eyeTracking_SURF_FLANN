@@ -2,11 +2,16 @@
 
 eyeT::Tracker::Tracker() :
     eyesFound( false ), eyesPositionFound( false ), K( 4 )
-{}
+{
+    this->eyesDescriptor.set_newParams(500,1.2f,8,14,0,2,cv::ORB::HARRIS_SCORE,14);
+    this->frameDescriptor.set_newParams(500,1.2f,8,14,0,2,cv::ORB::HARRIS_SCORE,14);
+}
 
 eyeT::Tracker::Tracker( cv::Mat& __eyesTemplate  ) :
     eyesFound( false ), eyesPositionFound( false ), K( 4 )
 {
+    this->eyesDescriptor.set_newParams(500,1.2f,8,14,0,2,cv::ORB::HARRIS_SCORE,14);
+    this->frameDescriptor.set_newParams(500,1.2f,8,14,0,2,cv::ORB::HARRIS_SCORE,14);
     this->setEyesTemplate( __eyesTemplate );
 }
 
@@ -16,7 +21,7 @@ bool eyeT::Tracker::haveEyesInFrame( cv::Mat& frame )
     if( this->eyesTemplate.empty() )
         return false;
     
-    // Obter descritores do frame usando SURF
+    // Obter descritores do frame usando ORB
     this->frameDescriptor.find_descriptors( frame );
     
     // Comparar os descritores usando FLANN
@@ -33,7 +38,7 @@ bool eyeT::Tracker::haveEyesInFrame( cv::Mat& frame, cv::Mat& resulImg )
     if( this->eyesTemplate.empty() )
         return false;
 
-    // Obter descritores do frame usando SURF
+    // Obter descritores do frame usando ORB
     this->frameDescriptor.find_descriptors( frame );
 
     // Comparar os descritores usando FLANN
